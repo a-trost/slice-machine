@@ -18,9 +18,10 @@ import { CustomType, ObjectTabs } from "@models/common/CustomType";
 const CustomTypeTable: React.FC<{
   customTypes: ReadonlyArray<CustomType<ObjectTabs>>;
 }> = ({ customTypes }) => {
-  const firstColumnWidth = "35%";
-  const secondColumnWidth = "50%";
+  const firstColumnWidth = "30%";
+  const secondColumnWidth = "40%";
   const thirdColumnWidth = "15%";
+  const fourthColumnWidth = "15%";
 
   return (
     <Box
@@ -40,6 +41,7 @@ const CustomTypeTable: React.FC<{
           <Box as={"th"} sx={{ width: thirdColumnWidth }}>
             Type
           </Box>
+          <Box as={"th"} sx={{ width: fourthColumnWidth }}></Box>
         </tr>
       </thead>
       <tbody>
@@ -54,6 +56,9 @@ const CustomTypeTable: React.FC<{
               </Box>
               <Box as={"td"} style={{ width: thirdColumnWidth }}>
                 {customType.repeatable ? "Repeatable Type" : "Single Type"}
+              </Box>
+              <Box as={"td"} style={{ width: fourthColumnWidth }}>
+                <Button>Delete</Button>
               </Box>
             </tr>
           </Link>
