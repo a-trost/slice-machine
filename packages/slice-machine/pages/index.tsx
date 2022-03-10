@@ -1,6 +1,14 @@
 import Link from "next/link";
-import React, { Fragment } from "react";
-import { Flex, Box, Button, Link as ThemeLink, Spinner, Text } from "theme-ui";
+import React, { ChangeEvent, Fragment, useState } from "react";
+import {
+  Flex,
+  Box,
+  Button,
+  Link as ThemeLink,
+  Spinner,
+  Text,
+  Checkbox,
+} from "theme-ui";
 
 import Container from "components/Container";
 import CreateCustomTypeModal from "components/Forms/CreateCustomTypeModal";
@@ -21,7 +29,12 @@ const CustomTypeTable: React.FC<{
   const firstColumnWidth = "30%";
   const secondColumnWidth = "40%";
   const thirdColumnWidth = "15%";
-  const fourthColumnWidth = "15%";
+  const fourthColumnWidth = "10%";
+
+  const onSelectCustomType = (event: ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.checked);
+    debugger;
+  };
 
   return (
     <Box
@@ -32,6 +45,7 @@ const CustomTypeTable: React.FC<{
     >
       <thead>
         <tr>
+          <Box as={"th"} sx={{ width: "5%" }}></Box>
           <Box as={"th"} sx={{ width: firstColumnWidth }}>
             Name
           </Box>
@@ -46,22 +60,23 @@ const CustomTypeTable: React.FC<{
       </thead>
       <tbody>
         {customTypes.map((customType) => (
-          <Link passHref href={`/cts/${customType.id}`} key={customType.id}>
-            <tr key={customType.id}>
-              <Box as={"td"} style={{ width: firstColumnWidth }}>
-                <Text sx={{ fontWeight: 500 }}>{customType.label}</Text>
-              </Box>
-              <Box as={"td"} style={{ width: secondColumnWidth }}>
-                {customType.id}
-              </Box>
-              <Box as={"td"} style={{ width: thirdColumnWidth }}>
-                {customType.repeatable ? "Repeatable Type" : "Single Type"}
-              </Box>
-              <Box as={"td"} style={{ width: fourthColumnWidth }}>
-                <Button>Delete</Button>
-              </Box>
-            </tr>
-          </Link>
+          <tr key={customType.id}>
+            <Box as={"td"} style={{ width: "5%" }}>
+              <input type={"checkbox"} onChange={onSelectCustomType} />
+            </Box>
+            <Box as={"td"} style={{ width: firstColumnWidth }}>
+              <Text sx={{ fontWeight: 500 }}>{customType.label}</Text>
+            </Box>
+            <Box as={"td"} style={{ width: secondColumnWidth }}>
+              {customType.id}
+            </Box>
+            <Box as={"td"} style={{ width: thirdColumnWidth }}>
+              {customType.repeatable ? "Repeatable Type" : "Single Type"}
+            </Box>
+            <Box as={"td"} style={{ width: fourthColumnWidth }}>
+              <Button>Delete</Button>
+            </Box>
+          </tr>
         ))}
       </tbody>
     </Box>
@@ -85,19 +100,29 @@ const CustomTypes: React.FunctionComponent = () => {
       <Header
         ActionButton={
           customTypes.length ? (
-            <Button
-              data-cy="create-ct"
-              onClick={openCreateCustomTypeModal}
-              sx={{
-                minWidth: "171px",
-              }}
-            >
-              {isCreatingCustomType ? (
-                <Spinner color="#FFF" size={14} />
-              ) : (
-                "Create a Custom Type"
-              )}
-            </Button>
+            <div>
+              <Button
+                sx={{
+                  minWidth: "171px",
+                }}
+              >
+                Delete Custom Types
+              </Button>
+              <Button
+                data-cy="create-ct"
+                onClick={openCreateCustomTypeModal}
+                sx={{
+                  minWidth: "171px",
+                  ml: 2,
+                }}
+              >
+                {isCreatingCustomType ? (
+                  <Spinner color="#FFF" size={14} />
+                ) : (
+                  "Create a Custom Type"
+                )}
+              </Button>
+            </div>
           ) : undefined
         }
         MainBreadcrumb={
