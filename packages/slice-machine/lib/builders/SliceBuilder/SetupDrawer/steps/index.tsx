@@ -1,4 +1,4 @@
-import { Frameworks } from "@slicemachine/core/build/src/models";
+import { Models } from "@slicemachine/core";
 
 import NextSetupStepperConfiguration from "./next";
 import NuxtSetupStepperConfiguration from "./nuxt";
@@ -7,16 +7,16 @@ import PreviousNuxtSetupStepperConfiguration from "./previousNuxt";
 import { SetupStepperConfiguration } from "@builders/SliceBuilder/SetupDrawer/steps/common";
 
 export const getStepperConfigurationByFramework = (
-  framework: Frameworks
+  framework: Models.Frameworks
 ): SetupStepperConfiguration => {
   switch (framework) {
-    case Frameworks.nuxt:
+    case Models.Frameworks.nuxt:
       return NuxtSetupStepperConfiguration;
-    case Frameworks.next:
+    case Models.Frameworks.next:
       return NextSetupStepperConfiguration;
-    case Frameworks.previousNext:
+    case Models.Frameworks.previousNext:
       return PreviousNextStepperConfiguration;
-    case Frameworks.previousNuxt:
+    case Models.Frameworks.previousNuxt:
       return PreviousNuxtSetupStepperConfiguration;
     default:
       throw new Error(`${framework} : doesn't support simulator`);
